@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Stream de musique !</title>
+	<script src="script.js"></script>
+    <script src="http://www.youtube.com/player_api"></script>
+</head>
+<body>
+	<h1 id="Titre"> Entrez le lien de la chanson que vous voulez! </h1>
+	Lien youtube : <input type="text" id="URL">
+	<input id="btn" type="submit" value="Ajouter" onclick="AjouterURL()">	
+	<div id="player"></div>
+    <script>
+
+        // create youtube player
+        var player;
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('player', {
+              height: '390',
+              width: '640',
+              videoId: 'afP71xwLI8Y',
+              events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+				'onError' : onError
+              }
+            });
+        }
+		function onError(event)
+		{
+			var	id = GetSRC();	
+			player.loadVideoById(id);
+		}
+        // autoplay video
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // when video ends
+        function onPlayerStateChange(event) {        
+            if(event.data === 0) {  
+				var	id = GetSRC();	
+				player.loadVideoById(id);
+				
+            }
+        }
+
+
+    </script>
+	
+	
+</body>
